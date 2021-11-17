@@ -37,4 +37,22 @@ spec:
           ports:
             - containerPort: 8000
           resources: {}
+          volumeMounts:
+          # - mountPath: /home/user/rest_api
+          #   name: code
+          - name: config
+            mountPath: "/config"
+            readOnly: true
+      volumes:
+      # - name: code
+      #   persistentVolumeClaim:
+      #     claimName: pvc-haystack-rest
+      - name: config
+        configMap:
+          # Provide the name of the ConfigMap you want to mount.
+          name: action-cm
+          # An array of keys from the ConfigMap to create as files
+          items:
+          - key: "chatbot.properties"
+            path: "chatbot.properties"
 status: {}

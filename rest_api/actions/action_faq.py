@@ -23,7 +23,7 @@ class ActionFAQ(Action):
             image = search["answers"][0]["meta"]["image"]
             confidence = search["answers"][0]["score"]
             if confidence!=0 and confidence > 0.85:
-                return [{"recipient_id": self.request.sender , "text" : text , "image": image}]
+                return [{"recipient_id": self.request.sender , "image": image}, {"recipient_id": self.request.sender , "text" : text}, {"recipient_id": "", "custom" : { "attachment" : { "type":"video", "payload":{ "src": "https://youtube.com/embed/9C1Km6xfdMA" } }} }]
             else:
                 return [{"recipient_id": self.request.sender , "text" : "Going to transfer"}, {"recipient_id": self.request.sender,"text":"I did not find anything in Knowledge base... Select your prefered choice:","buttons":[{"title":"callback","payload":"callback"},{"title":"handover to support","payload":"handover"},{"title":"Raising a jira ticket","payload":"jira"}]}]
             
