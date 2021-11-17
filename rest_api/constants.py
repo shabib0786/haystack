@@ -6,3 +6,6 @@ HANDOVER = 'handover'
 ACTION_DATA = 'actionData'
 TARGET_DEPARTMENT = 'targetDepartment'
 LIVE_CHAT_1 = 'Livechat1'
+REDIS_HOST = 'my-rocketchat-redis-master'
+REDIS_PORT = 6379
+REDIS_PASSWORD = 'redis123'

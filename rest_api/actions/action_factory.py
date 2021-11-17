@@ -1,3 +1,4 @@
+from redis import Redis
 from rest_api.controller.omnichannel_request import OmniChannelRequest
 from rest_api.actions.action_atq import ActionAtq
 from rest_api.actions.action_faq import ActionFAQ
