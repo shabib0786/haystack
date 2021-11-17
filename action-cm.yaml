@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: action-cm
+data:
+  # property-like keys; each key maps to a simple value
+  # player_initial_lives: "3"
+  # ui_properties_file_name: "user-interface.properties"
+
+  chatbot.properties: |
+    [urls]
+    iam_login_url = https://iam.nslhub.com/auth/realms/ptest/protocol/openid-connect/token
+    source_uri = ptest.qa3.nslhub.com
+    source_url = https://ptest.qa3.nslhub.com
+    admin_add_user = https://ptest.qa3.nslhub.com/admin/adduser
+    add_user = https://ptest.qa3.nslhub.com/dsd-orch/cdm/api/cdm/create/user
+    incoming_msg_url = http://my-chatbot-rocketchat:3000/api/apps/public/646b8e7d-f1e1-419e-9478-10d0f5bc74d9/incoming
+    rocketchat_chatbot_url = http://my-chatbot-rocketchat:3000
+    server_url = http://my-chatbot-rocketchat:3000
+    jira_server = https://fractalenterprises.atlassian.net
+    rocketchat_server = http://my-chatbot-rocketchat:3000

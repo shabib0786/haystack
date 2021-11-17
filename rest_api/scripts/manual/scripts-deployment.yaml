@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scripts-deployment
+  labels:
+    app: scripts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scripts
+  template:
+    metadata:
+      labels:
+        app: scripts
+    spec:
+      containers:
+      - name: scripts
+        image: localhost:5000/scripts:v1.0
+        env:
+        - name: "esport"
+          value: "9200"
+        - name: "filepath"
+          value: "consolidated2.csv"
+        - name: "elasticip"
+          value: "elasticsearch"
+        imagePullPolicy: Always

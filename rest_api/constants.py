@@ -1,0 +1,8 @@
+CONTENT_TYPE = 'Content-type'
+APPLICATION_JSON = 'application/json'
+SESSION_ID = 'sessionId'
+ACTION = 'action'
+HANDOVER = 'handover'
+ACTION_DATA = 'actionData'
+TARGET_DEPARTMENT = 'targetDepartment'
+LIVE_CHAT_1 = 'Livechat1'

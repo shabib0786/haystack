@@ -1,0 +1,42 @@
+#! /usr/bin/env python3
+from haystack.document_store.elasticsearch import ElasticsearchDocumentStore
+from haystack.retriever.dense import EmbeddingRetriever
+from haystack.pipeline import FAQPipeline
+import logging
+import pandas as pd
+import datetime
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--elasticip', type=str, required=True)
+parser.add_argument('--filepath', type=str, required=True)
+parser.add_argument('--esport', type=str, required=True)
+args = parser.parse_args()
+
+document_store_faq = ElasticsearchDocumentStore(host= args.elasticip, port = 9200, username='', password='',
+                                            index='nsl_support_document',
+                                            embedding_field='question_emb',
+                                            embedding_dim=384, similarity='cosine')
+
+retriever_faq = EmbeddingRetriever(document_store=document_store_faq, embedding_model='sentence-transformers/all-MiniLM-L6-v2', use_gpu=True)
+
+logging.info('retriever_faq object initialised')
+
+df = pd.read_csv(args.filepath)
+
+df.fillna(value='', inplace=True)
+df['question'] = df['question'].apply(lambda x: x.strip())
+logging.info(df.head())
+questions = list(df['question'].values)
+
+
+df = df.rename(columns={'question': 'text'})
+
+logging.info('docs_to_index_faq creation starts ' + str(datetime.datetime.now()))
+docs_to_index_faq = df.to_dict(orient='records')
+logging.info('docs_to_index_faq creation ends ' + str(datetime.datetime.now()))
+logging.info('writing to elasticsearch usign document_store_faq ' + str(datetime.datetime.now()))
+document_store_faq.write_documents(docs_to_index_faq, index='nsl_support_document')
+document_store_faq.update_embeddings(retriever=retriever_faq, index = 'nsl_support_document', update_existing_embeddings = False)
+
+logging.info('written to elasticsearch usign document_store_faq ' + str(datetime.datetime.now()))

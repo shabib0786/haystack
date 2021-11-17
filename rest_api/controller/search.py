@@ -10,11 +10,14 @@ from pydantic import BaseModel
 from haystack import Pipeline
 from rest_api.config import PIPELINE_YAML_PATH, LOG_LEVEL, QUERY_PIPELINE_NAME, CONCURRENT_REQUEST_PER_WORKER
 from rest_api.controller.utils import RequestLimiter
+from rest_api.actions.action_factory import ActionFactory
+from rest_api.controller.omnichannel_request import OmniChannelRequest
 
 logging.getLogger("haystack").setLevel(LOG_LEVEL)
 logger = logging.getLogger("haystack")
 
 router = APIRouter()
+
 
 
 class Request(BaseModel):
@@ -38,12 +41,27 @@ class Answer(BaseModel):
 
 class Response(BaseModel):
     query: str
-    answers: List[Answer]
+    answer: str
+    # answers: List[Answer]
 
 
 PIPELINE = Pipeline.load_from_yaml(Path(PIPELINE_YAML_PATH), pipeline_name=QUERY_PIPELINE_NAME)
 logger.info(f"Loaded pipeline nodes: {PIPELINE.graph.nodes.keys()}")
 concurrency_limiter = RequestLimiter(CONCURRENT_REQUEST_PER_WORKER)
+
+@router.post("/webhooks/rest/webhook", response_model = List[Dict])
+def query(request: OmniChannelRequest):
+    with concurrency_limiter.run():
+        result = process_request(request)
+        return result
+
+
+def process_request(request: OmniChannelRequest) -> List[Dict]:
+    action_factory = ActionFactory()
+    action = action_factory.create_action('faq', request)
+    response = action.run()
+    return response
+
 
 
 @router.post("/query", response_model=Response)

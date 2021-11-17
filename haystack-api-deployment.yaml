@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.24.0 (4a2a0458)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: haystack-api
+  name: haystack-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: haystack-api
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.24.0 (4a2a0458)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: haystack-api
+    spec:
+      containers:
+        - args:
+            - /bin/bash
+            - -c
+            - sleep 15 && gunicorn rest_api.application:app -b 0.0.0.0 -k uvicorn.workers.UvicornWorker --workers 1 --timeout 3000
+          env:
+            - name: DOCUMENTSTORE_PARAMS_HOST
+              value: elasticsearch
+          # image: deepset/haystack-cpu:latest
+          image: localhost:5000/myimage
+          name: haystack-api
+          ports:
+            - containerPort: 8000
+          resources: {}
+status: {}
