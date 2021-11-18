@@ -10,10 +10,16 @@ class RedisConnection:
         self.redis_client = redis.Redis(host = REDIS_HOST, port = REDIS_PORT, password = REDIS_PASSWORD)
         
      def save(self, room_id, data : dict):
-         self.redis_client.set(room_id, json.dumps(data))
+         self.redis_client.set(name = room_id, value =  json.dumps(data), ex = 3600)
+
+     def delete(self, room_id):
+         self.redis_client.delete(room_id)
 
      def get(self, room_id):
-         return json.loads(self.redis_client.get(room_id))
+         if self.redis_client.get(room_id) != None:
+            return json.loads(self.redis_client.get(room_id))
+         else: 
+            return {"error": "Key is not present in redis."}
 
 
 
