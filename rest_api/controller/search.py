@@ -12,9 +12,13 @@ from rest_api.config import PIPELINE_YAML_PATH, LOG_LEVEL, QUERY_PIPELINE_NAME, 
 from rest_api.controller.utils import RequestLimiter
 from rest_api.actions.action_factory import ActionFactory
 from rest_api.controller.omnichannel_request import OmniChannelRequest
-
+from rest_api.util.abusive import is_abusive
+from rest_api.constants import RECIPIENT_ID, TEXT, ABUSIVE_WORD_RESPONSE
+from rest_api.util.rocket_chat_util import set_name_and_email
+from rest_api.util.redis_util import RedisUtil
 logging.getLogger("haystack").setLevel(LOG_LEVEL)
 logger = logging.getLogger("haystack")
+
 
 router = APIRouter()
 
@@ -57,10 +61,16 @@ def query(request: OmniChannelRequest):
 
 
 def process_request(request: OmniChannelRequest) -> List[Dict]:
-    action_factory = ActionFactory()
-    action = action_factory.create_action('faq', request)
-    response = action.run()
-    return response
+    if is_abusive(request.message) == False:
+        redis_util = RedisUtil()
+        if redis_util.get_name(request.sender) == None:
+            set_name_and_email(request.sender)
+        action_factory = ActionFactory()
+        action = action_factory.create_action('faq', request)
+        response = action.run()
+        return response
+    else:
+        return [{RECIPIENT_ID: request.sender , TEXT : ABUSIVE_WORD_RESPONSE}]
 
 
 

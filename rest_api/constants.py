@@ -11,11 +11,23 @@ LIVE_CHAT_1 = 'Livechat1'
 REDIS_HOST = 'my-rocketchat-redis-master'
 REDIS_PORT = 6379
 REDIS_PASSWORD = 'redis123'
+REDIS_ERROR = 'error'
 CONTEXT = "context"
 CALLBACK = "callback"
 MOBILE_NO = "mobile_number"
 YES = "YES"
 NO = "NO"
+
+GREET_MESSAGE = "Hello, Please ask your questions."
+
+NAME = 'name'
+EMAIL = 'email'
+
+YANTR = 'yantr'
+
+ROCKET_CHAT_SERVER_URL = 'http://my-rocketchat-rocketchat:3000'
+
+ABUSIVE_WORD_RESPONSE = 'Please refrain from using abusive language. How may I help you ?'
 
 ENTER_MOBILE_NO = "Enter Your mobile number "
 INVALID_MOBILE_NO = "Number is invalid. Please enter a valid mobile number: "

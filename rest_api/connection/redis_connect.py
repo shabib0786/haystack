@@ -3,6 +3,7 @@ import json
 from rest_api.constants import REDIS_HOST
 from rest_api.constants import REDIS_PORT
 from rest_api.constants import REDIS_PASSWORD
+from rest_api.constants import REDIS_ERROR
 
 class RedisConnection:
 
@@ -19,7 +20,7 @@ class RedisConnection:
          if self.redis_client.get(room_id) != None:
             return json.loads(self.redis_client.get(room_id))
          else: 
-            return {"error": "Key is not present in redis."}
+            return { REDIS_ERROR : "Key is not present in redis."}
 
 
 
