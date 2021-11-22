@@ -14,15 +14,15 @@ RUN apt-get install libpoppler-cpp-dev pkg-config -y --fix-missing
 RUN apt-get install tesseract-ocr libtesseract-dev poppler-utils -y
 
 # copy code
-COPY haystack /home/user/haystack
+# COPY haystack /home/user/haystack
 
-# install as a package
-COPY setup.py requirements.txt README.md /home/user/
+# install as a package ->setup.py
+COPY requirements.txt README.md /home/user/
 RUN pip install -r requirements.txt
-RUN pip install -e .
+# RUN pip install -e .
 
 # copy saved models
-COPY README.md models* /home/user/models/
+# COPY README.md models* /home/user/models/
 
 # Copy REST API code
 COPY rest_api /home/user/rest_api
