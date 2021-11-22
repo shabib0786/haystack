@@ -20,7 +20,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "rocketchat.mongodb.fullname" -}}
-{{- printf "%s-%s-headless" .Release.Name "mongodb" | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-headless"  "rocketchat-data" | trunc 63 | trimSuffix "-" -}} 
 {{- end -}}
 
 {{/*

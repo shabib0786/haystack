@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.24.0 (4a2a0458)
   creationTimestamp: null
   labels:
-    io.kompose.service: haystack-api
-  name: haystack-api
+    io.kompose.service: chatbot
+  name: chatbot
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: haystack-api
+      io.kompose.service: chatbot
   strategy: {}
   template:
     metadata:
@@ -21,7 +21,7 @@ spec:
         kompose.version: 1.24.0 (4a2a0458)
       creationTimestamp: null
       labels:
-        io.kompose.service: haystack-api
+        io.kompose.service: chatbot
     spec:
       containers:
         - args:
@@ -33,7 +33,7 @@ spec:
               value: elasticsearch
           # image: deepset/haystack-cpu:latest
           image: localhost:5000/myimage
-          name: haystack-api
+          name: chatbot
           ports:
             - containerPort: 8000
           resources: {}

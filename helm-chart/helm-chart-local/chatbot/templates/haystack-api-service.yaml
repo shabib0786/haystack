@@ -6,8 +6,8 @@ metadata:
     kompose.version: 1.24.0 (4a2a0458)
   creationTimestamp: null
   labels:
-    io.kompose.service: haystack-api
-  name: haystack-api
+    io.kompose.service: chatbot
+  name: chatbot
 spec:
   type: NodePort
   ports:
@@ -15,6 +15,6 @@ spec:
       port: 8000
       targetPort: 8000
   selector:
-    io.kompose.service: haystack-api
+    io.kompose.service: chatbot
 status:
   loadBalancer: {}

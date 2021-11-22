@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.24.0 (4a2a0458)
   creationTimestamp: null
   labels:
-    io.kompose.service: elasticsearch
-  name: elasticsearch
+    io.kompose.service: documentstore
+  name: documentstore
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: elasticsearch
+      io.kompose.service: documentstore
   strategy: {}
   template:
     metadata:
@@ -21,14 +21,14 @@ spec:
         kompose.version: 1.24.0 (4a2a0458)
       creationTimestamp: null
       labels:
-        io.kompose.service: elasticsearch
+        io.kompose.service: documentstore
     spec:
       containers:
         - env:
             - name: discovery.type
               value: single-node
           image: elasticsearch:7.9.2
-          name: elasticsearch
+          name: documentstore
           ports:
             - containerPort: 9200
           resources: {}

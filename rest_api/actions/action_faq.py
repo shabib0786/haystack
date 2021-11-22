@@ -4,7 +4,7 @@ from haystack.retriever.dense import EmbeddingRetriever
 from haystack.pipeline import FAQPipeline
 from haystack.document_store.elasticsearch import ElasticsearchDocumentStore
 
-document_store = ElasticsearchDocumentStore(host="elasticsearch", username="", password="",
+document_store = ElasticsearchDocumentStore(host="documentstore", username="", password="",
                                             index="nsl_support_document",
                                             embedding_field="question_emb",
                                             embedding_dim=384,

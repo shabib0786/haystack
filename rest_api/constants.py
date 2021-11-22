@@ -8,7 +8,7 @@ HANDOVER = 'handover'
 ACTION_DATA = 'actionData'
 TARGET_DEPARTMENT = 'targetDepartment'
 LIVE_CHAT_1 = 'Livechat1'
-REDIS_HOST = 'my-rocketchat-redis-master'
+REDIS_HOST = 'chatbot-data-master'
 REDIS_PORT = 6379
 REDIS_PASSWORD = 'redis123'
 REDIS_ERROR = 'error'
@@ -25,7 +25,7 @@ EMAIL = 'email'
 
 YANTR = 'yantr'
 
-ROCKET_CHAT_SERVER_URL = 'http://my-rocketchat-rocketchat:3000'
+ROCKET_CHAT_SERVER_URL = 'http://chatbot-rocketchat:3000'
 
 ABUSIVE_WORD_RESPONSE = 'Please refrain from using abusive language. How may I help you ?'
 

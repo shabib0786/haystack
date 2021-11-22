@@ -33,11 +33,11 @@ image:
 
 ## String to partially override redis.fullname template (will maintain the release name)
 ##
-# nameOverride:
+# nameOverride: chatbot-data
 
 ## String to fully override redis.fullname template
 ##
-# fullnameOverride:
+fullnameOverride: chatbot-data
 
 ## Cluster settings
 cluster:

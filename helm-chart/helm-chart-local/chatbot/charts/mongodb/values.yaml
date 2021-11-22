@@ -38,11 +38,11 @@ image:
 
 ## String to partially override mongodb.fullname template (will maintain the release name)
 ##
-# nameOverride:
+# nameOverride: rocketchat-data
 
 ## String to fully override mongodb.fullname template
 ##
-# fullnameOverride:
+fullnameOverride: rocketchat-data
 
 ## Kubernetes Cluster Domain
 ##

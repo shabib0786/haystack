@@ -23,5 +23,5 @@ spec:
         - name: "filepath"
           value: "consolidated2.csv"
         - name: "elasticip"
-          value: "elasticsearch"
+          value: "documentstore"
         imagePullPolicy: Always
