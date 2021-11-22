@@ -1,6 +1,6 @@
 from rocketchat_API.rocketchat import RocketChat
 from rest_api.constants import YANTR
-from rest_api.constants import ROCKET_CHAT_SERVER_URL
+from rest_api.constants import ROCKET_CHAT_SERVER_URL, NAME, EMAIL
 from rest_api.util.redis_util import RedisUtil
 import logging
 
@@ -18,4 +18,5 @@ def set_name_and_email(sender_id: str):
     name = rocket_chat_response1['visitor']['name']
     email = rocket_chat_response1['visitor']['visitorEmails'][0]['address']
     redis_util = RedisUtil()
-    redis_util.set_name_and_email_in_redis(sender_id, name, email) # This line will set name and email in redis cache
+    redis_util.set_key_in_redis(sender_id, NAME, name) # This line will set name  in redis cache
+    redis_util.set_key_in_redis(sender_id, EMAIL, email) # This line will set email in redis cache
