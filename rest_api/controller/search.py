@@ -13,7 +13,7 @@ from rest_api.controller.utils import RequestLimiter
 from rest_api.actions.action_factory import ActionFactory
 from rest_api.controller.omnichannel_request import OmniChannelRequest
 from rest_api.util.abusive import is_abusive
-from rest_api.constants import RECIPIENT_ID, TEXT, ABUSIVE_WORD_RESPONSE, NAME
+from rest_api.constants import RECIPIENT_ID, TEXT, ABUSIVE_WORD_RESPONSE, NAME, FAQ
 from rest_api.util.rocket_chat_util import set_name_and_email
 from rest_api.util.redis_util import RedisUtil
 logging.getLogger("haystack").setLevel(LOG_LEVEL)
@@ -66,7 +66,7 @@ def process_request(request: OmniChannelRequest) -> List[Dict]:
         if redis_util.get_value_from_redis(request.sender, NAME) == None:
             set_name_and_email(request.sender)
         action_factory = ActionFactory()
-        action = action_factory.create_action('faq', request)
+        action = action_factory.create_action(FAQ, request)
         response = action.run()
         return response
     else:

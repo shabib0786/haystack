@@ -19,6 +19,7 @@ MOBILE_NO = "mobile_number"
 DESCRIPTION_JIRA = "description_jira"
 YES = "YES"
 NO = "NO"
+FAQ = "faq"
 
 GREET_MESSAGE = "Hello, Please ask your questions."
 

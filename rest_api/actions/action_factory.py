@@ -1,11 +1,10 @@
 from rest_api.actions.action_greet import ActionGreet
 from rest_api.controller.omnichannel_request import OmniChannelRequest
-from rest_api.actions.action_atq import ActionAtq
-from rest_api.actions.action_faq import ActionFAQ
+from rest_api.actions.action_faq_atq import ActionFaqAndAtq
 from rest_api.actions.action_handover import ActionHandover
 from rest_api.actions.action_call_back import ActionCallback
 from rest_api.util.redis_util import RedisUtil
-from rest_api.constants import CALLBACK, CALLBACK_STATE_0, CONTEXT, CURRENT_STATE, HANDOVER, JIRA, JIRA_STATE_0
+from rest_api.constants import CALLBACK, CALLBACK_STATE_0, CONTEXT, CURRENT_STATE, HANDOVER, JIRA, JIRA_STATE_0, FAQ
 from rest_api.actions.action_jira import ActionJira
 
 
@@ -34,10 +33,7 @@ class ActionFactory:
         elif request.message == HANDOVER:
             return ActionHandover(request)
 
-        elif action_name == 'faq':
-            return ActionFAQ(request)
-
-        elif action_name == 'atq':
-            return ActionAtq(request)
+        elif action_name == FAQ:
+            return ActionFaqAndAtq(request)
 
         
