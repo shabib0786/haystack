@@ -1,11 +1,68 @@
-question,answer,image
-What is the use of creating a book?,Books help you to keep your solutions organized and separate. Books also allow you to have more than one solution with the different solutions,http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_4_2.png
-What does the Book icon represent on the canvas,"Using the book icon, you can directly create books or add books from the library ",
-What is the use of the Book Icon?,"Using the book icon, you can directly create books or add books from the library ",http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_5_1.png
-How can I search a book?,"You Can directly search for a book by 
-Step:1 Select the caret down icon (⏷) on the top right of the canvas.
-Step 2: Choose the Book radio button
-Step 3: Select apply
-Step 4: Search the book name on the search bar, 
-Step 5: Select the Book.",http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_5_3.png
-What does the lightbulb icon represent on the canvas,"The lightbulb icon represents solutions/Intent/wish/Idea/GSIs. Using this icon, you can directly create or add a GSI from library. ",http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_5_2.png
+question,answer,image,video
+How to Create a new Project ,"Click on the Projects tab.
+Click New Project.
+Enter the name of the project in the Project Name column.
+Add a description of the project in the Description column.
+Select the project type (Pixel or Vector) from the drop-down list.
+
+Note: You cannot modify the project type after creating a new project.",http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_4_2.png,https://web.microsoftstream.com/video/760b8c72-b8f4-46e6-8113-d27ee1b3c092?list=studio&referrer=https:%2F%2Ffractalenterprises.atlassian.net%2F
+How to Add Images to the project ,"i. Click on the Image tab.
+ii. Drag and drop or upload image/folder from the computer.
+Adding Annotated Image File:
+i. Click on the Image with Annotated File tab.
+ii. Click Upload Json File.
+You can view Json in different formats such as Text, Tree, and Code.",http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_4_2.png,https://web.microsoftstream.com/video/aa3bf6a2-285a-41b1-ad53-114310d3252e
+How to do vedios files ,"It is similar to that of adding an image.
+Click on the Image tab.
+Drag and drop or upload image/folder from the computer.
+The NSL Annotate tool converts the uploaded video into several frames. These frames are images, which can be annotated as per the requirement.",http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_4_2.png,https://web.microsoftstream.com/video/7a9b2111-d249-4907-aaa7-4f1fc991e20d
+How to Add Classes and Attributes,"This step describes how to create a new class (or select an existing class) and
+add it to a project.
+To manually add a class:
+a.
+Click Add Classes.
+b.
+To create a class:
+i.
+Click New Classes.
+ii.
+Enter the class name and group name.
+iii.
+Assign attributes to the class.
+iv.
+Click Save Class.",,https://web.microsoftstream.com/video/13df0c87-93d7-4a51-bafd-b37cb08c48d5
+How to add Contributors ,"Note: Only an Admin can add new contributors to a project. For more information about  
+roles and permissions, see Workflow and Permissions. 
+1..Click on the Contributors tab. 
+2..View the list of all the contributors. 
+3..To add a new contributor: 
+	a.Click New Contributors. 
+	b.Add the contributor’s first name, last name, and email. 
+	c.Assign a role (Admin or User) from the drop-down list
+	d..Click ADD.",http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_4_2.png,
+How to check the Project status ,"Using the NSL Annotate tool, you can filter the projects based on the  
+project status—Open or Closed. 
+
+Click on the Projects tab. 
+Click Select Status. 
+Filter the project according to the project status (Open or Closed).",http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_4_2.png,
+How to update the New Version ?,"When a new version is available, the tool displays the Update option.
+Click Update to integrate the latest features.",,
+"Types of projects 
+","The NSL Annotate tool allows you to create two types of projects – Vector and Pixel.
+You can select the project type while creating a new project (see Creating a New Project).",,
+How to open the existing project,"Using the NSL Annotate tool, you can search and edit an existing project.
+To open and edit an existing project:
+01..Enter the project name in the Search by project name lumn.
+2..Click the Search icon.
+ The images used in the project are displayed on the screen.
+Details such as project creation date, number of images, videos, and classes in
+the project, project type, and project status are available.
+3..To open the project, click the > icon.",,
+How to fillter the images based on the Annotation Status ,"a. Click Select Status.
+b. Filter the project according to the status (NA, Not Started, In Progress,Quality Check, Return).
+An image can have the following annotation statuses:
+• Not Started: It means that the Annotator has not started working on the image.
+ In Progress: It means that an Annotator is working on the image.
+Quality Check: It means that a QA is reviewing the image.
+Return: It means that the image is returned to the Annotator for Further review.",,
