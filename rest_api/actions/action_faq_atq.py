@@ -56,5 +56,5 @@ class ActionFaqAndAtq(Action):
             text = prediction["answers"][0]["answer"]
             return [{"recipient_id": self.request.sender , "text" : text}]
         else:
-            return [{"recipient_id": self.request.sender , "text" : "Going to transfer"}, {"recipient_id": self.request.sender,"text":"I did not find anything in Knowledge base... Select your prefered choice:","buttons":[{"title":"callback","payload":"callback"},{"title":"handover to support","payload":"handover"},{"title":"Raising a jira ticket","payload":"jira"}]}]
+            return [{"recipient_id": self.request.sender , "text" : "Going to transfer"}, {"recipient_id": self.request.sender,"text":"I did not find anything in Knowledge base... Select your prefered choice:","buttons":[{"title":"callback","payload":"callback"},{"title":"Transfer to an agent","payload":"handover"},{"title":"Create a ticket","payload":"jira"}]}]
            

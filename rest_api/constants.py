@@ -37,11 +37,11 @@ JIRA_TOKEN = ''
 
 
 ABUSIVE_WORD_RESPONSE = 'Please refrain from using abusive language. How may I help you ?'
-ENTER_MOBILE_NO = "Enter Your mobile number "
+ENTER_MOBILE_NO = "Please specify the phone number that you will be available."
 INVALID_MOBILE_NO = "Number is invalid. Please enter a valid mobile number: "
 CALL_WITHIN_BUSINESS_HOURS = "We will call you back on your mobile number within 4 business hours. Is it possible to take the call? "
 ASK_TIME_SLOT = "Please specify a time convenient to you within 9am to 6pm Mon-Fri"
-VERIFY_MOBILE_NO = "Please Verify the mobile number."
+VERIFY_MOBILE_NO = "Please Verify your mobile number."
 UPDATE_MOBILE_NO = "Do you want to update your mobile number?"
 CURRENT_STATE = "state"
 JIRA_DESCRIPTION = "Please provide the description"
