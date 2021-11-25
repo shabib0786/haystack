@@ -42,7 +42,7 @@ image:
 
 ## String to fully override mongodb.fullname template
 ##
-fullnameOverride: rocketchat-data
+fullnameOverride: chatserver-data
 
 ## Kubernetes Cluster Domain
 ##

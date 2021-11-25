@@ -9,7 +9,7 @@ JIRA = "jira"
 ACTION_DATA = 'actionData'
 TARGET_DEPARTMENT = 'targetDepartment'
 LIVE_CHAT_1 = 'Livechat1'
-REDIS_HOST = 'chatbot-data-master'
+REDIS_HOST = 'chatbot-cache-master'
 REDIS_PORT = 6379
 REDIS_PASSWORD = 'redis123'
 REDIS_ERROR = 'error'
@@ -28,7 +28,9 @@ EMAIL = 'email'
 
 YANTR = 'yantr'
 
-ROCKET_CHAT_SERVER_URL = 'http://chatbot-rocketchat:3000'
+ROCKET_CHAT_SERVER_URL = 'http://chatserver:3000'
+
+ROCKET_CHAT_EKS_SERVICE_URL = 'http://chatserver:3000/api/v1/channels.messages?roomId='
 
 JIRA_SERVER_URL = 'https://fractalenterprises.atlassian.net'
 
@@ -37,7 +39,7 @@ JIRA_TOKEN = ''
 
 
 ABUSIVE_WORD_RESPONSE = 'Please refrain from using abusive language. How may I help you ?'
-ENTER_MOBILE_NO = "Please specify the phone number that you will be available."
+ENTER_MOBILE_NO = "Please specify the phone number that will be available."
 INVALID_MOBILE_NO = "Number is invalid. Please enter a valid mobile number: "
 CALL_WITHIN_BUSINESS_HOURS = "We will call you back on your mobile number within 4 business hours. Is it possible to take the call? "
 ASK_TIME_SLOT = "Please specify a time convenient to you within 9am to 6pm Mon-Fri"

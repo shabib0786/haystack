@@ -1,14 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: scripts-deployment
+  name: model-training
   labels:
     app: scripts
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: scripts
+  ttlSecondsAfterFinished: 10
   template:
     metadata:
       labels:
@@ -25,3 +22,4 @@ spec:
         - name: "elasticip"
           value: "documentstore"
         imagePullPolicy: Always
+      restartPolicy: OnFailure

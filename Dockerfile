@@ -1,6 +1,15 @@
+FROM python:3.7.4-stretch as build
+
+WORKDIR /code
+
+COPY rest_api ./rest_api
+
+# compling the python code
+RUN python -m compileall -b
+
 FROM python:3.7.4-stretch
 
-WORKDIR /home/user
+WORKDIR /app
 
 RUN apt-get update && apt-get install -y curl git pkg-config cmake
 
@@ -13,19 +22,23 @@ RUN apt-get install libpoppler-cpp-dev pkg-config -y --fix-missing
 # Install Tesseract
 RUN apt-get install tesseract-ocr libtesseract-dev poppler-utils -y
 
-# copy code
-# COPY haystack /home/user/haystack
-
 # install as a package ->setup.py
-COPY requirements.txt README.md /home/user/
+COPY requirements.txt README.md /app/
 RUN pip install -r requirements.txt
-# RUN pip install -e .
-
-# copy saved models
-# COPY README.md models* /home/user/models/
 
 # Copy REST API code
-COPY rest_api /home/user/rest_api
+COPY --from=build code/rest_api /app/rest_api
+
+# making the directory for pyc files
+RUN find ./ -type f -name "*.pyc" -exec install -D {} pycFiles/{} \;
+
+
+EXPOSE 8000
+CMD ["gunicorn", "pycFiles.rest_api.application.pyc:app", "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--workers", "1", "--timeout", "3000"]
+
+
+# # Copy REST API code
+# COPY rest_api /app/rest_api
 
 # optional : copy sqlite db if needed for testing
 #COPY qa.db /home/user/
@@ -33,7 +46,12 @@ COPY rest_api /home/user/rest_api
 # optional: copy data directory containing docs for ingestion
 #COPY data /home/user/data
 
-EXPOSE 8000
-
 # cmd for running the API
-CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--workers", "1", "--timeout", "3000"]
+# CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--workers", "1", "--timeout", "3000"]
+
+# RUN pip install -e .
+
+# copy saved models
+# COPY README.md models* /home/user/models/
+
+

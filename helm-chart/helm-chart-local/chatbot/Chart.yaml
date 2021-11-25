@@ -27,7 +27,7 @@ description: Prepare to take off with the ultimate chat platform, experience the
 # maintainers:
 # - email: cloud@rocket.chat
 #   name: RocketChat
-name: rocketchat
+name: chatserver
 # sources:
 # - https://github.com/RocketChat/Docker.Official.Image/
 version: 3.1.0

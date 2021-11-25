@@ -5,6 +5,7 @@ from haystack.pipeline import FAQPipeline
 from haystack.document_store.elasticsearch import ElasticsearchDocumentStore
 from haystack.reader import FARMReader
 from haystack.pipeline import ExtractiveQAPipeline
+from rest_api.util.response_util import OmniChannelResponseUtil
 
 import logging
 
@@ -31,7 +32,6 @@ retriever_atq = DensePassageRetriever(document_store=document_store_atq,
 
 reader_atq = FARMReader(model_name_or_path="deepset/roberta-base-squad2")
 logging.info("reader_atq creation ends " )
-
 pipe_atq = ExtractiveQAPipeline(reader_atq, retriever_atq)
 logging.info("pipe creation for atq ends " )
 
@@ -46,11 +46,13 @@ class ActionFaqAndAtq(Action):
         if len(search["answers"]) > 0:
             text = search["answers"][0]["answer"]
             image = search["answers"][0]["meta"]["image"]
-            # video = search["answers"][0]["meta"]["video"]
+            video = search["answers"][0]["meta"]["video"]
             confidence_faq = search["answers"][0]["score"]
-            if confidence_faq!=0 and confidence_faq > 0.85: # , {"recipient_id": "", "custom" : { "attachment" : { "type":"video", "payload":{ "src": video } }} }
-                return [{"recipient_id": self.request.sender , "image": image}, {"recipient_id": self.request.sender , "text" : text}]
-        
+            logging.info(f'======TEXT : {text}, IMAGE : {image}, VIDEO : {video}=============')
+            if confidence_faq!=0 and confidence_faq > 0.85: 
+                return OmniChannelResponseUtil.get_response(text, image, video, self.request.sender)
+            
+                         
         prediction = pipe_atq.run(query = self.request.message, params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 1}})
         if len(prediction["answers"]) > 0 and prediction["answers"][0]['score'] > 0.1:
             text = prediction["answers"][0]["answer"]

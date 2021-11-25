@@ -13,6 +13,8 @@ image:
 replicaCount: 1
 minAvailable: 1
 
+nameOverride: chatserver
+
 smtp:
   enabled: false
   username:

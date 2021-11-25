@@ -1,7 +1,12 @@
 #! /usr/bin/env python3
 from haystack.document_store.elasticsearch import ElasticsearchDocumentStore
-from haystack.retriever.dense import EmbeddingRetriever
+from haystack.preprocessor.cleaning import clean_wiki_text
+from haystack.retriever.dense import EmbeddingRetriever, DensePassageRetriever
 from haystack.pipeline import FAQPipeline
+from haystack.preprocessor.utils import convert_files_to_dicts
+from haystack.preprocessor import PreProcessor
+
+
 import logging
 import pandas as pd
 import datetime
@@ -13,10 +18,41 @@ parser.add_argument('--filepath', type=str, required=True)
 parser.add_argument('--esport', type=str, required=True)
 args = parser.parse_args()
 
+logging.info('Initialiazing document store for ATQ..')
+document_store_atq = ElasticsearchDocumentStore(host= args.elasticip ,port = 9200, username="", password="",
+                            index="nsl_support_document_atq",
+                            embedding_dim=768)
+
+all_docs = convert_files_to_dicts(dir_path= "document_atq", clean_func=clean_wiki_text, split_paragraphs=True)
+
+processor = PreProcessor(clean_empty_lines=True,
+                        clean_whitespace=True,
+                        clean_header_footer=True,
+                        split_by="word",
+                        split_length=200,
+                        split_respect_sentence_boundary=True,
+                        split_overlap=0
+                        )
+docs = processor.process(all_docs)
+
+document_store_atq.write_documents(docs,index="nsl_support_document_atq")
+
+logging.info('retriever_atq object initialised')
+retriever_atq = DensePassageRetriever(document_store=document_store_atq, 
+                    query_embedding_model="facebook/dpr-question_encoder-single-nq-base",
+                    passage_embedding_model="facebook/dpr-ctx_encoder-single-nq-base",
+                    use_gpu = False)
+
+document_store_atq.update_embeddings(retriever=retriever_atq,index="nsl_support_document_atq",update_existing_embeddings=False)
+
+logging.info('Embeddings done for ATQ..')
+
+
 document_store_faq = ElasticsearchDocumentStore(host= args.elasticip, port = 9200, username='', password='',
                                             index='nsl_support_document',
                                             embedding_field='question_emb',
                                             embedding_dim=384, similarity='cosine')
+
 
 retriever_faq = EmbeddingRetriever(document_store=document_store_faq, embedding_model='sentence-transformers/all-MiniLM-L6-v2', use_gpu=True)
 

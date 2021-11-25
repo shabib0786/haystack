@@ -22,6 +22,8 @@ COPY ${filepath} ${filepath}
 
 COPY elastic-script .
 
+COPY train-atq-script .
+
 RUN pwd
 
 RUN ls -lrt
@@ -42,4 +44,6 @@ RUN ls -lrt
 
 
 
-CMD ["sh", "-c","/script/elastic-script --filepath=${filepath} --elasticip=${elasticip} --esport=${esport}"]
+CMD ["sh", "-c","/script/elastic-script --filepath=${filepath} --elasticip=${elasticip} --esport=${esport}" ]
+
+# /script/train-atq-script && 

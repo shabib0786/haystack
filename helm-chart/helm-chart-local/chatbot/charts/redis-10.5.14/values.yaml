@@ -37,7 +37,7 @@ image:
 
 ## String to fully override redis.fullname template
 ##
-fullnameOverride: chatbot-data
+fullnameOverride: chatbot-cache
 
 ## Cluster settings
 cluster:

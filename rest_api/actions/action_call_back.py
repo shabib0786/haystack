@@ -16,6 +16,8 @@ from rest_api.constants import TEXT
 from rest_api.constants import YES, NO
 from rest_api.util.redis_util import RedisUtil
 from rest_api.util.callback_util import validateNumber
+from rest_api.util.rocket_chat_util import send_chat_from_chat_server
+
 
 class ActionCallback(Action):
     def __init__(self, request: OmniChannelRequest):
@@ -55,6 +57,7 @@ class ActionCallback(Action):
                 return [{RECIPIENT_ID: self.request.sender , TEXT : ENTER_MOBILE_NO}]
 
         elif present_state == CALLBACK_STATE_5:
+            send_chat_from_chat_server(self.request.sender)
             self.redis_util.remove_key_from_redis(self.request.sender, CONTEXT)
             self.redis_util.remove_key_from_redis(self.request.sender, CURRENT_STATE)
             return [{RECIPIENT_ID: self.request.sender , TEXT : "Thankyou."}]
@@ -63,6 +66,7 @@ class ActionCallback(Action):
             message = self.request.message
             message = message.upper()
             if message == YES:
+                send_chat_from_chat_server(self.request.sender)
                 self.redis_util.remove_key_from_redis(self.request.sender, CONTEXT)
                 self.redis_util.remove_key_from_redis(self.request.sender, CURRENT_STATE)
                 return [{RECIPIENT_ID: self.request.sender , TEXT : "Thankyou."}]
