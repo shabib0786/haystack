@@ -1,9 +1,25 @@
 #! /usr/bin/env python3
 import logging
 from haystack.reader.farm import FARMReader
+import argparse
 
-logging.info("Training model on given data....")
-reader = FARMReader(model_name_or_path='deepset/roberta-base-squad2') 
-reader.train(data_dir=".", train_filename="answers.json", use_gpu=True, n_epochs=1, save_dir="my_model")
-reader.save(directory="my_model")
-logging.info("Training completed.......")
+parser = argparse.ArgumentParser()
+parser.add_argument('--model_name', type=str, required=True)
+parser.add_argument('--train_choice', type=str, required=True)
+args = parser.parse_args()
+
+logging.info("Creating file....")
+
+with open('readme.txt', 'w') as f:
+    f.write('Create a new text file!')
+
+
+logging.info("File created....")
+
+if (args.train_choice == 'y' or args.train_choice == 'Y'):
+
+    logging.info("Training model on given data....")
+    reader = FARMReader(model_name_or_path=args.model_name) 
+    reader.train(data_dir=".", train_filename="answers.json", use_gpu=True, n_epochs=1, save_dir="my_model")
+    reader.save(directory="my_model")
+    logging.info("Training completed.......")

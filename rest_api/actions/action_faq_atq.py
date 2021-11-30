@@ -30,7 +30,7 @@ retriever_atq = DensePassageRetriever(document_store=document_store_atq,
                     passage_embedding_model="facebook/dpr-ctx_encoder-single-nq-base",
                     use_gpu = False)
 
-reader_atq = FARMReader(model_name_or_path="deepset/roberta-base-squad2")
+reader_atq = FARMReader(model_name_or_path="rest_api/atq_model/my_model")
 logging.info("reader_atq creation ends " )
 pipe_atq = ExtractiveQAPipeline(reader_atq, retriever_atq)
 logging.info("pipe creation for atq ends " )
@@ -54,7 +54,8 @@ class ActionFaqAndAtq(Action):
             
                          
         prediction = pipe_atq.run(query = self.request.message, params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 1}})
-        if len(prediction["answers"]) > 0 and prediction["answers"][0]['score'] > 0.1:
+        logging.info(prediction["answers"])
+        if len(prediction["answers"]) > 0 and prediction["answers"][0]['score'] > 0.01:
             text = prediction["answers"][0]["answer"]
             return [{"recipient_id": self.request.sender , "text" : text}]
         else:

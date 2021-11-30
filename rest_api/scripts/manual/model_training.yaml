@@ -14,7 +14,14 @@ spec:
       containers:
       - name: scripts
         image: localhost:5000/scripts:v1.0
+        volumeMounts:
+        - name: my-volume
+          mountPath: /script
         env:
+        - name: "model_name"
+          value: "deepset/minilm-uncased-squad2"
+        - name: "train_choice"
+          value: "y"
         - name: "esport"
           value: "9200"
         - name: "filepath"
@@ -23,3 +30,7 @@ spec:
           value: "documentstore"
         imagePullPolicy: Always
       restartPolicy: OnFailure
+      volumes:
+      - name: my-volume
+        hostPath:
+          path: /test_folder/atq_model

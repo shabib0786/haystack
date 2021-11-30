@@ -40,6 +40,8 @@ spec:
           volumeMounts:
           # - mountPath: /home/user/rest_api
           #   name: code
+          - mountPath: /app/rest_api/atq_model
+            name: atq-model
           - name: config
             mountPath: "/config"
             readOnly: true
@@ -47,6 +49,9 @@ spec:
       # - name: code
       #   persistentVolumeClaim:
       #     claimName: pvc-haystack-rest
+      - name: atq-model
+        hostPath:
+          path: /test_folder/atq_model
       - name: config
         configMap:
           # Provide the name of the ConfigMap you want to mount.

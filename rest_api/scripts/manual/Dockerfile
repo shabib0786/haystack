@@ -44,6 +44,6 @@ RUN ls -lrt
 
 
 
-CMD ["sh", "-c","/script/elastic-script --filepath=${filepath} --elasticip=${elasticip} --esport=${esport}" ]
+CMD ["sh", "-c","/script/train-atq-script --model_name=${model_name} --train_choice=${train_choice} && /script/elastic-script --filepath=${filepath} --elasticip=${elasticip} --esport=${esport}"]
 
-# /script/train-atq-script && 
+# && /script/elastic-script --filepath=${filepath} --elasticip=${elasticip} --esport=${esport}" 
