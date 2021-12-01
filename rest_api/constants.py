@@ -1,5 +1,6 @@
 RECIPIENT_ID = 'recipient_id'
 TEXT = 'text'
+BUTTON = 'buttons'
 CONTENT_TYPE = 'Content-type'
 APPLICATION_JSON = 'application/json'
 SESSION_ID = 'sessionId'
@@ -46,7 +47,11 @@ ASK_TIME_SLOT = "Please specify a time convenient to you within 9am to 6pm Mon-F
 VERIFY_MOBILE_NO = "Please Verify your mobile number."
 UPDATE_MOBILE_NO = "Do you want to update your mobile number?"
 CURRENT_STATE = "state"
+THANK_YOU_CALLBACK = "Thank you for contacting us. This chat will end now."
+THANK_YOU_CALLBACK_AFTER_SLOT = "Thank you for specifying the time. We will call you within half hour of the specified time on the mobile number listed. This chat will end now."
 JIRA_DESCRIPTION = "Please provide the description"
+
+
 
 CALLBACK_STATE_0 = 0 # get user input
 CALLBACK_STATE_1 = 1 # get mobile number

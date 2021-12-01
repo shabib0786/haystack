@@ -9,10 +9,10 @@ from rest_api.constants import CALLBACK_STATE_1, CONTEXT
 from rest_api.constants import CALLBACK_STATE_3
 from rest_api.constants import CALLBACK_STATE_5
 from rest_api.constants import CALLBACK_STATE_6, CALLBACK_STATE_4
-from rest_api.constants import MOBILE_NO
+from rest_api.constants import MOBILE_NO, THANK_YOU_CALLBACK_AFTER_SLOT, THANK_YOU_CALLBACK
 from rest_api.constants import VERIFY_MOBILE_NO
 from rest_api.constants import RECIPIENT_ID
-from rest_api.constants import TEXT
+from rest_api.constants import TEXT, BUTTON
 from rest_api.constants import YES, NO
 from rest_api.util.redis_util import RedisUtil
 from rest_api.util.callback_util import validateNumber
@@ -34,7 +34,7 @@ class ActionCallback(Action):
             else:  #Valid mobile number
                 self.redis_util.set_key_in_redis(self.request.sender, CURRENT_STATE, CALLBACK_STATE_3)
                 self.redis_util.set_key_in_redis(self.request.sender, MOBILE_NO, isValidNumber.group())
-                return [{RECIPIENT_ID: self.request.sender , TEXT : CALL_WITHIN_BUSINESS_HOURS}]
+                return [{RECIPIENT_ID: self.request.sender , TEXT : CALL_WITHIN_BUSINESS_HOURS, BUTTON:[{"title":"yes","payload":"yes"},{"title":"no","payload":"no"}]}]
 
         elif present_state == CALLBACK_STATE_0:
             mobile_no = self.redis_util.get_value_from_redis(self.request.sender, MOBILE_NO)
@@ -51,7 +51,7 @@ class ActionCallback(Action):
             message = message.upper()
             if message == YES:
                 self.redis_util.set_key_in_redis(self.request.sender, CURRENT_STATE, CALLBACK_STATE_3)
-                return [{RECIPIENT_ID: self.request.sender , TEXT : CALL_WITHIN_BUSINESS_HOURS}]
+                return [{RECIPIENT_ID: self.request.sender , TEXT : CALL_WITHIN_BUSINESS_HOURS, BUTTON:[{"title":"yes","payload":"yes"},{"title":"no","payload":"no"}]}]
             else:
                 self.redis_util.set_key_in_redis(self.request.sender, CURRENT_STATE, CALLBACK_STATE_1)
                 return [{RECIPIENT_ID: self.request.sender , TEXT : ENTER_MOBILE_NO}]
@@ -60,7 +60,7 @@ class ActionCallback(Action):
             send_chat_from_chat_server(self.request.sender)
             self.redis_util.remove_key_from_redis(self.request.sender, CONTEXT)
             self.redis_util.remove_key_from_redis(self.request.sender, CURRENT_STATE)
-            return [{RECIPIENT_ID: self.request.sender , TEXT : "Thankyou."}]
+            return [{RECIPIENT_ID: self.request.sender , TEXT : THANK_YOU_CALLBACK_AFTER_SLOT}]
 
         elif present_state == CALLBACK_STATE_3:
             message = self.request.message
@@ -69,7 +69,7 @@ class ActionCallback(Action):
                 send_chat_from_chat_server(self.request.sender)
                 self.redis_util.remove_key_from_redis(self.request.sender, CONTEXT)
                 self.redis_util.remove_key_from_redis(self.request.sender, CURRENT_STATE)
-                return [{RECIPIENT_ID: self.request.sender , TEXT : "Thankyou."}]
+                return [{RECIPIENT_ID: self.request.sender , TEXT : THANK_YOU_CALLBACK}]
             elif message == NO:
                 self.redis_util.set_key_in_redis(self.request.sender, CURRENT_STATE, CALLBACK_STATE_5)
                 return [{RECIPIENT_ID: self.request.sender , TEXT : ASK_TIME_SLOT}]
