@@ -5,6 +5,8 @@ from haystack.retriever.dense import EmbeddingRetriever, DensePassageRetriever
 from haystack.pipeline import FAQPipeline
 from haystack.preprocessor.utils import convert_files_to_dicts
 from haystack.preprocessor import PreProcessor
+from haystack.document_store.faiss import FAISSDocumentStore
+from haystack.retriever.dense import EmbeddingRetriever
 
 
 import logging
@@ -76,3 +78,12 @@ document_store_faq.write_documents(docs_to_index_faq, index='nsl_support_documen
 document_store_faq.update_embeddings(retriever=retriever_faq, index = 'nsl_support_document', update_existing_embeddings = False)
 
 logging.info('written to elasticsearch usign document_store_faq ' + str(datetime.datetime.now()))
+
+document_store_generator = FAISSDocumentStore(vector_dim=128, faiss_index_factory_str="Flat")
+document_store_generator.delete_documents()
+document_store_generator.write_documents(docs)
+embedding_retriever = EmbeddingRetriever(document_store=document_store_generator,
+                               embedding_model="yjernite/retribert-base-uncased",
+                               model_format="retribert")
+document_store_generator.update_embeddings(embedding_retriever)
+

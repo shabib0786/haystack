@@ -50,7 +50,7 @@ CURRENT_STATE = "state"
 THANK_YOU_CALLBACK = "Thank you for contacting us. This chat will end now."
 THANK_YOU_CALLBACK_AFTER_SLOT = "Thank you for specifying the time. We will call you within half hour of the specified time on the mobile number listed. This chat will end now."
 JIRA_DESCRIPTION = "Please provide the description"
-
+WRONG_RESPONSE = "Wrong response"
 
 
 CALLBACK_STATE_0 = 0 # get user input
